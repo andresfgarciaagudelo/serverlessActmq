@@ -1,6 +1,6 @@
 
 'use strict';
-
+import funtionDb from './dynamo.js'
 const AWS = require('aws-sdk'); // Import AWS SDK
 const { Console } = require('console');
 let dynamo = new AWS.DynamoDB.DocumentClient(); // Instance DynamoDB to manage WEB Socket lyfecycle 
@@ -25,13 +25,25 @@ const successfullResponse = {
 module.exports.connectionHandler = (event, context, callback) => {
 
   console.log(event);
-  console.log(context.domainName)
-  console.log(context.stage)
+  
 
   if (event.requestContext.eventType === 'CONNECT') {
+    console.log("qweryparams");
+    console.log(event.queryStringParameters.storeId);
+    console.log(event.queryStringParameters.posId);
+
+    const item={
+      id: event.queryStringParameters.storeId,
+      connectionId: event.requestContext.connectionId,
+      storeId: event.queryStringParameters.storeId,
+      posId: event.queryStringParameters.posId
+      
+    }
     
     // Handle connection
-    addConnection(event.requestContext.connectionId)
+    let searchDb=funtionDb.searchItem(item.id);
+    if(!searchDb){
+    addConnection(item)
 
       .then(() => {
         console.log('New connection: ' + event.requestContext.connectionId);
@@ -42,6 +54,13 @@ module.exports.connectionHandler = (event, context, callback) => {
         console.log(err);
         callback(null, JSON.stringify(err));
       });
+    }else{
+         
+         if(searchDb.orders){
+
+         }
+
+    }
 
   } else if (event.requestContext.eventType === 'DISCONNECT') {
     
@@ -64,13 +83,39 @@ module.exports.connectionHandler = (event, context, callback) => {
 };
 
 // Save CONNECT document into DynamoDB
-const addConnection = connectionId => {
+const addConnection = item => {
 
 
   const params = {
     TableName: CHATCONNECTION_TABLE,
     Item: {
-      connectionId: connectionId 
+      id:item.id,
+      connectionId: item.connectionId ,
+      storeId: item.storeId,
+      posId: item.posId,
+      orders: item.orders,
+      status:1
+
+
+    }
+  };
+
+  return dynamo.put(params).promise();
+};
+const addConnection = item => {
+
+
+  const params = {
+    TableName: CHATCONNECTION_TABLE,
+    Item: {
+      id:item.id,
+      connectionId: item.connectionId ,
+      storeId: item.storeId,
+      posId: item.posId,
+      orders: item.orders,
+      status:1
+
+
     }
   };
 
@@ -82,11 +127,15 @@ const deleteConnection = connectionId => {
   const params = {
     TableName: CHATCONNECTION_TABLE,
     Key: {
-      connectionId: connectionId 
-    }
+      id: connectionId
+    },
+    UpdateExpression: "set status= :r",
+    ExpressionAttributeValues:{
+      ":r":0
+    },
   };
 
-  return dynamo.delete(params).promise();
+  return dynamo.update(params).promise();
 };
 
 // defaultHandler --> THIS ONE DOESNT DO ANYHTING
@@ -115,7 +164,7 @@ module.exports.sendMessageHandler = (event, context, callback) => {
 }
 
 const sendMessageToAllConnected = (event) => {
-  console.log("entro sendMessage")
+  console.log("entro SendMessageToAllConnected")
   return getConnectionIds().then(connectionData => {
 
     return connectionData.Items.map(connectionId => {
@@ -137,18 +186,19 @@ const getConnectionIds = () => {
 const send = (event, connectionId) => {
 try{
   const body = event.messages;
-  
   console.log("body => " + JSON.stringify(body));
 
-  let buff = new Buffer(JSON.stringify(body[0].data), 'base64'); 
+  body.map(function(mensaje){
   
+  console.log("message=> " + JSON.stringify(mensaje));
 
-  const postData = buff.toString('ascii');
+
+  const postData = new Buffer(JSON.stringify(mensaje.data), 'base64').toString('ascii'); 
    
   console.log("postData into send => " + postData);
   
 
-  const endpoint = "kjcu849td9.execute-api.us-east-2.amazonaws.com/dev";
+  const endpoint = "bcmzeh25qh.execute-api.us-east-2.amazonaws.com/dev";
 
   const apigwManagementApi = new AWS.ApiGatewayManagementApi({
     apiVersion: "2018-11-29",
@@ -160,7 +210,7 @@ try{
     Data: postData
   };
 
-  return apigwManagementApi.postToConnection(params).promise();
+  return apigwManagementApi.postToConnection(params).promise();});
 }catch(error){
   console.log("ingrese al catch")
   console.log(error)}

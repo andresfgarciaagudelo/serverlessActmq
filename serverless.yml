@@ -58,10 +58,15 @@ resources:
       Type: "AWS::DynamoDB::Table"
       Properties:
         AttributeDefinitions:
-        - AttributeName: "connectionId"
+        - AttributeName: "id"
           AttributeType: "S"
+        
+          
+
         KeySchema:
-        - AttributeName: "connectionId"
+        - AttributeName: "id"
           KeyType: "HASH"
+        
+        
         BillingMode: PAY_PER_REQUEST
         TableName: ordersTable

@@ -208,7 +208,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/or-pub-sub-orders/dev/1639069712552-2021-12-09T17:08:32.552Z/or-pub-sub-orders.zip"
+          "S3Key": "serverless/or-pub-sub-orders/dev/1639086160870-2021-12-09T21:42:40.870Z/or-pub-sub-orders.zip"
         },
         "Handler": "handler.connectionHandler",
         "Runtime": "nodejs12.x",
@@ -233,7 +233,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/or-pub-sub-orders/dev/1639069712552-2021-12-09T17:08:32.552Z/or-pub-sub-orders.zip"
+          "S3Key": "serverless/or-pub-sub-orders/dev/1639086160870-2021-12-09T21:42:40.870Z/or-pub-sub-orders.zip"
         },
         "Handler": "handler.defaultHandler",
         "Runtime": "nodejs12.x",
@@ -258,7 +258,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/or-pub-sub-orders/dev/1639069712552-2021-12-09T17:08:32.552Z/or-pub-sub-orders.zip"
+          "S3Key": "serverless/or-pub-sub-orders/dev/1639086160870-2021-12-09T21:42:40.870Z/or-pub-sub-orders.zip"
         },
         "Handler": "handler.sendMessageHandler",
         "Runtime": "nodejs12.x",
@@ -276,34 +276,34 @@
         "SendMessageHandlerLogGroup"
       ]
     },
-    "ConnectionHandlerLambdaVersion2vKDmINLiphaUsnOpqgkPoOQeRUnGvzrCu6y9bRk": {
+    "ConnectionHandlerLambdaVersionj7qq82hbSsABV8OWRHn5IaNWRYPrYmiwSzLiztDwM": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ConnectionHandlerLambdaFunction"
         },
-        "CodeSha256": "wHEuaqc4iY5sQr1zSBq4x9IfEeFEhxXeINSYl57/CKQ="
+        "CodeSha256": "RBcKfbOswxZJ2a0fgh9gZJEvl5/P3GZQtDY1DDoaRNs="
       }
     },
-    "DefaultHandlerLambdaVersionYKFTEmXlmB2PjTKqCKs0T5ST9VDKI1mFhxIdVBHc": {
+    "DefaultHandlerLambdaVersionHMF4nmf7nvVvgn0kEjQowSE1srRg33EoL3iy9DY9o": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "DefaultHandlerLambdaFunction"
         },
-        "CodeSha256": "wHEuaqc4iY5sQr1zSBq4x9IfEeFEhxXeINSYl57/CKQ="
+        "CodeSha256": "RBcKfbOswxZJ2a0fgh9gZJEvl5/P3GZQtDY1DDoaRNs="
       }
     },
-    "SendMessageHandlerLambdaVersionEBbbE4owXen5gNm1o9VcdbCEDDiIevbqVpc90tpbsg": {
+    "SendMessageHandlerLambdaVersionyxx9Fb4E1M2q3nLoWGbdUxTgpWdTXpGlOaZA7oFmddM": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "SendMessageHandlerLambdaFunction"
         },
-        "CodeSha256": "wHEuaqc4iY5sQr1zSBq4x9IfEeFEhxXeINSYl57/CKQ="
+        "CodeSha256": "RBcKfbOswxZJ2a0fgh9gZJEvl5/P3GZQtDY1DDoaRNs="
       }
     },
     "WebsocketsApi": {
@@ -678,7 +678,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/or-pub-sub-orders/dev/1639069712552-2021-12-09T17:08:32.552Z/custom-resources.zip"
+          "S3Key": "serverless/or-pub-sub-orders/dev/1639086160870-2021-12-09T21:42:40.870Z/custom-resources.zip"
         },
         "FunctionName": "or-pub-sub-orders-dev-custom-resource-apigw-cw-role",
         "Handler": "apiGatewayCloudWatchRole/handler.handler",
@@ -743,7 +743,7 @@
     "ConnectionHandlerLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ConnectionHandlerLambdaVersion2vKDmINLiphaUsnOpqgkPoOQeRUnGvzrCu6y9bRk"
+        "Ref": "ConnectionHandlerLambdaVersionj7qq82hbSsABV8OWRHn5IaNWRYPrYmiwSzLiztDwM"
       },
       "Export": {
         "Name": "sls-or-pub-sub-orders-dev-ConnectionHandlerLambdaFunctionQualifiedArn"
@@ -752,7 +752,7 @@
     "DefaultHandlerLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "DefaultHandlerLambdaVersionYKFTEmXlmB2PjTKqCKs0T5ST9VDKI1mFhxIdVBHc"
+        "Ref": "DefaultHandlerLambdaVersionHMF4nmf7nvVvgn0kEjQowSE1srRg33EoL3iy9DY9o"
       },
       "Export": {
         "Name": "sls-or-pub-sub-orders-dev-DefaultHandlerLambdaFunctionQualifiedArn"
@@ -761,7 +761,7 @@
     "SendMessageHandlerLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "SendMessageHandlerLambdaVersionEBbbE4owXen5gNm1o9VcdbCEDDiIevbqVpc90tpbsg"
+        "Ref": "SendMessageHandlerLambdaVersionyxx9Fb4E1M2q3nLoWGbdUxTgpWdTXpGlOaZA7oFmddM"
       },
       "Export": {
         "Name": "sls-or-pub-sub-orders-dev-SendMessageHandlerLambdaFunctionQualifiedArn"
